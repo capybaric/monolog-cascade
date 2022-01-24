@@ -21,19 +21,19 @@ use Cascade\Tests\Fixtures;
  *
  * @author Raphael Antonmattei <rantonmattei@theorchard.com>
  */
-class FileLoaderAbstractTest extends \PHPUnit_Framework_TestCase
+class FileLoaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Mock of extending Cascade\Config\Loader\FileLoader\FileLoaderAbstract
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $mock = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $fileLocatorMock = $this->getMock(
+        $fileLocatorMock = $this->createMock(
             'Symfony\Component\Config\FileLocatorInterface'
         );
 
@@ -47,7 +47,7 @@ class FileLoaderAbstractTest extends \PHPUnit_Framework_TestCase
         \FileLoaderAbstractMockClass::$validExtensions = array('test', 'php');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->mock = null;
         parent::tearDown();
@@ -151,11 +151,11 @@ class FileLoaderAbstractTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test loading an invalid file
-     *
-     * @expectedException \RuntimeException
      */
     public function testloadFileFromInvalidFile()
     {
+        $this->expectException(\RuntimeException::class);
+
         // mocking the file system from a 'config_dir' base dir
         $root = vfsStream::setup('config_dir');
 
